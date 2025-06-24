@@ -6,7 +6,11 @@
   "repository": "https://github.com/roddsv/ia_api_integration",
   "author": "Rodrigo Soares <adsrodsoares@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/app.js"
+  },
   "dependencies": {
+    "express": "^5.1.0",
     "nodemon": "^3.1.10"
   }
 }
