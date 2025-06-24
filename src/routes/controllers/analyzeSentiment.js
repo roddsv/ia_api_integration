@@ -14,3 +14,5 @@ analyzeSentimentText = async (req, res, next) => {
         next(e);
     }
 }
+
+module.exports = analyzeSentimentText;
