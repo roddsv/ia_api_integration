@@ -16,4 +16,6 @@ getSentimento = () = async (prompt) => {
             }
         }
     );
+
+    return response.data.choices[0].text;
 }
