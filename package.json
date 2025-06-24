@@ -1,0 +1,12 @@
+{
+  "name": "ia_api_integration",
+  "version": "1.0.0",
+  "description": "Desafio de Código - Coodesh",
+  "main": "index.js",
+  "repository": "https://github.com/roddsv/ia_api_integration",
+  "author": "Rodrigo Soares <adsrodsoares@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
