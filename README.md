@@ -1,58 +1,125 @@
-# API com integração de IA
-### Objetivo
-Criar uma API simples que:
-	1.	Analisa um texto de entrada.
-	2.	Retorna estatísticas básicas.
-	3.	Integra com uma API pública de IA para detectar sentimento.
+# 📊 Text Analyzer API
 
-### Requisitos obrigatórios
-Crie um endpoint POST /analyze-text que receba um JSON com o seguinte formato:
+API simples desenvolvida com **Node.js** e **Express** que realiza:
+- Análise estatística de um texto
+- Detecção de sentimento via **OpenAI** (GPT-3.5)
+- Retorno das 5 palavras mais frequentes (ignorando *stopwords*)
+- Histórico de análise com busca por termos
+
+---
+
+## 🚀 Tecnologias Utilizadas
+
+- Node.js + Express
+- OpenAI API (GPT-3.5 Turbo)
+- Regex para análise textual
+- Cache em memória (pode ser adaptado para SQLite)
+- Documentação Swagger (OpenAPI 3.0)
+
+---
+
+## 📦 Instalação
+
+```bash
+npm install
 ```
+
+Crie o arquivo `.env` na raiz:
+
+```env
+OPENAI_API_KEY=sk-sua-chave-aqui
+PORT=3000
+```
+
+---
+
+## ▶️ Executar o projeto
+
+```bash
+npm run dev     # Modo desenvolvimento
+npm start       # Modo produção
+```
+
+---
+
+## 📌 Endpoints disponíveis
+
+### 🔹 POST `/api/analyze-text`
+
+Envia um texto para análise de palavras e sentimento.
+
+#### Body (JSON):
+```json
 {
-  "text": "Seu texto livre aqui..."
+  "text": "Hoje estou muito feliz por estar programando."
 }
 ```
-A resposta da API deve conter:
-- A contagem total de palavras.
-- As 5 palavras mais frequentes (ignorando stopwords, se possível).
-- Um resumo de sentimento do texto, utilizando alguma API pública de IA como:
-  - OpenAI (ex: `gpt-3.5-turbo` ou `gpt-4`)
-  - Claude (Anthropic)
-  - Hugging Face (ex: `distilbert-base-uncased-finetuned-sst-2-english`)
 
-### Opcional
-Adicionar um endpoint GET /search-term?term=... que retorne:
-- Se o termo informado foi encontrado na última análise.
-- Pode manter o histórico em cache/memória ou SQLite.
+#### Resposta:
+```json
+{
+  "wordCount": 6,
+  "top5Words": [
+    { "word": "feliz", "count": 1 },
+    { "word": "programando", "count": 1 },
+    { "word": "hoje", "count": 1 },
+    { "word": "estar", "count": 1 },
+    { "word": "muito", "count": 1 }
+  ],
+  "sentiment": "positivo"
+}
+```
 
-### Tecnologias sugeridas
-- Linguagens: Node.js ou Python
-- Frameworks: Express, FastAPI, Django ou similar
-- Armazenamento: pode usar cache em memória, JSON local ou SQLite
-- Outras boas práticas:
-- Organização do código
-- Tratamento de erros
-- Uso de status codes HTTP adequados
-- Documentação simples (ex: Swagger ou README)
+---
 
-## Readme do Repositório
+### 🔹 GET `/api/search-term?term=palavra`
 
-- Deve conter o título do projeto
-- Uma descrição sobre o projeto em frase
-- Deve conter uma lista com linguagem, framework e/ou tecnologias usadas
-- Como instalar e usar o projeto (instruções)
-- Não esqueça o [.gitignore](https://www.toptal.com/developers/gitignore)
-- Se está usando github pessoal, referencie que é um challenge by coodesh:  
+Verifica se a palavra pesquisada está presente no último texto analisado.
 
->  This is a challenge by [Coodesh](https://coodesh.com/)
+#### Resposta:
+```json
+{
+  "found": true
+}
+```
 
-## Finalização e Instruções para a Apresentação
+---
 
-1. Adicione o link do repositório com a sua solução no teste
-2. Verifique se o Readme está bom e faça o commit final em seu repositório;
-3. Envie e aguarde as instruções para seguir. Caso o teste tenha apresentação de vídeo, dentro da tela de entrega será possível gravar após adicionar o link do repositório. Sucesso e boa sorte. =)
+## 🧠 Stopwords
 
+As palavras mais comuns da língua (ex: "o", "de", "que") são ignoradas na contagem para tornar a análise mais relevante. Listadas em `src/utils/stopwords.js`.
 
-## Suporte
+---
 
-Para tirar dúvidas sobre o processo envie uma mensagem diretamente a um especialista no chat da plataforma. 
+## 📄 Documentação Swagger
+
+Arquivo Swagger incluso (`swagger.yaml`) com a especificação completa em OpenAPI 3.0.
+Você pode:
+- Visualizar com [Swagger Editor](https://editor.swagger.io)
+- Importar no Postman
+
+---
+
+## 💡 Estrutura do Projeto
+
+```
+text-analyzer-api/
+├── src/
+│   ├── controllers/         # Lógica dos endpoints
+│   ├── services/            # Regras de negócio
+│   ├── routes/              # Rotas da API
+│   ├── db/                  # Histórico em memória
+│   ├── utils/               # Stopwords
+│   └── app.js               # App principal
+├── swagger.yaml             # Documentação da API
+├── .env                     # Variáveis de ambiente
+├── package.json             # Scripts e dependências
+```
+
+---
+
+## 👨‍💻 Autor
+
+Desenvolvido por Rodrigo Soares como desafio técnico — API organizada, comentada e testável com Postman ou Swagger.
+
+---
