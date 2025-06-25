@@ -20,4 +20,20 @@ analyzeSentimentText = async (req, res, next) => {
     }
 }
 
-module.exports = analyzeSentimentText;
+searchForTerm = (req, res) => {
+    const term = req.query.term;
+    lastAnalysis = req.body.text;
+
+    if (!term || !lastAnalysis) {
+        return res.status(400).json({ error: "Análise indisponível!"})
+    }
+
+    const found = lastAnalysis.toLowerCase().includes(term.toLowerCase());
+    res.json({ found });
+}
+
+module.exports = {
+    analyzeSentimentText: analyzeSentimentText,
+    searchForTerm: searchForTerm
+    
+};
