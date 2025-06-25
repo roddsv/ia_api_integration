@@ -1,5 +1,5 @@
-const sentimentService = require('../../services/sentimentService');
-const wordAnalysisService = require('../../services/wordAnalysisService');
+const sentimentService = require('../services/sentimentService');
+const wordAnalysisService = require('../services/wordAnalysisService');
 
 analyzeSentimentText = async (req, res, next) => {
     try {
